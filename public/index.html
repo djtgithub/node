@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	姓名：<input type="text" name="xingming">
+	年龄：<input type="text" name="age">
+	性别<input type="text" name="sex">
+		<button onclick="add()">注册</button>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+
+	function add(){
+
+
+		$.get('/register',{
+			xingming:$('input[name="xingming"]').val(),
+			age:$('input[name="age"]').val(),
+			sex:$('input[name="sex"]').val()
+		},function(data){
+			alert(data)
+		})
+
+
+
+		// $.post('/register',{            //post请求服务端处理比较复杂需对内容进行分段处理
+		// 	xingming:$('input[name="xingming"]').val(),
+		// 	age:$('input[name="age"]').val(),
+		// 	sex:$('input[name="sex"]').val()
+		// },function(data){
+		// 	alert(data)
+		// })
+	}
+	
+
+
+
+</script>
+</body>
+</html>
