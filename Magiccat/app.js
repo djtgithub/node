@@ -13,7 +13,9 @@ var querystring = require('querystring');
 
 app.use((req, res, next) => {
     // 允许的请求主机名及端口号 也可以用通配符*， 表示允许所有主机请求
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+
     // 允许请求携带cookie 
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 允许的请求方式
@@ -113,22 +115,32 @@ app.post('/login', function(req, res) {
         var dbo = db.db("Magiccat");
         var Data;
         //链接到数据文档
+        // var datajson=dbo.collection("user").find({ "username": req.username }).pretty();
+        // console.log('sdasdsa'+datajson);
         dbo.collection("user").find({ "username": req.username }).toArray(function(err, data) {
             if (err) {
                 console.log('error' + err);
                 return;
             }
             console.log('data'+data);
-            if (data.length > 0) { //找到相同的用户名提示已经注册
+            if (data.length > 0) { //找到相同的用户名去匹配用户名跟密码
+                console.log('找到了'+JSON.stringify(data))
+                 if(req.username==data[0].username && req.password==data[0].password){
+                     //用户名跟密码都相匹配成功  
+                 }
                 callback(data);
-            } 
+            }else{
+                //用户名或密码不正确
+                data="用户名或密码不正确";
+                callback(data);
+            }
         });
         
     }
     MongoClient.connect(Baseurl, function(err, db) {
         delData(db, function(restult) {
              console.log('连接成功'+restult);
-             // if(req.usernma==)
+         
             var restult = {
                 'code': 200,
                 'data': restult
