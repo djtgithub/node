@@ -48,8 +48,10 @@ function jishi_content(req, res){
         var dbo = db.db("Magiccat");
         var Data;
         //注册时候先去表里查找该用户名是否存在
+        var a=db.db("Magiccat").collection("jishi_content").find().count();
+        	console.log('aaaaaaaaaa'+a);
         dbo.collection("jishi_content").find().toArray(function(err, data) {
-        	var a=dbo.collection("jishi_content").find().count();
+        	// var a=dbo.collection("jishi_content").find().count();
         	console.log('aaaaaaaaaa'+JSON.stringify(a));
         	
             if (err) {
