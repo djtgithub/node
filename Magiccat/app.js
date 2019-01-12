@@ -13,7 +13,8 @@ var querystring = require('querystring');
 app.use((req, res, next) => {
     // 允许的请求主机名及端口号 也可以用通配符*， 表示允许所有主机请求
     // res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.1.108:8080');
     // 允许请求携带cookie 
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 允许的请求方式
@@ -161,3 +162,5 @@ var server = app.listen(3001, function() {
 
     console.log('Example app listening at http://%s:%s', host, port);
 })
+
+// var server = app.listen(3001,'0.0.0.0');
