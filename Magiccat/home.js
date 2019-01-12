@@ -44,7 +44,7 @@ function carousel(req, res) {
 
 function jishi_content(req, res){
     // console.log('首页数据'+querystring)
-    console.log('首页数据'+JSON.parse(req.query.filter).limit);
+    console.log('首页数据'+JSON.parse(req.query.filter));
     var req=JSON.parse(req.query.filter);
 
 	//首先得从数据库里找到数据
