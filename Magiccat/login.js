@@ -38,10 +38,9 @@ function login(req, res) {
             }
         })
     }
-    //-------------------------------------------------------------链接数据库并且操作其他的--------------------------------------------------------
+//-------------------------------------------------------------链接数据库并且操作其他的--------------------------------------------------------
     MongoClient.connect(Baseurl, function(err, db) {
         delData(db, function(restult) {
-            console.log('连接成功' + JSON.stringify(restult));
             var restult = {
                 'code': restult.code,
                 'data': restult.data,

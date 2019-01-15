@@ -5,11 +5,8 @@ var Baseurl = "mongodb://localhost:27017/Magiccat";
 
 
 function register(req, res) {
-    console.log('---------------------------------------------------------------')
     //接收到的参数
-    console.log('wrwer' + req);
     req = req.body;
-    console.log(req.username);
     //首先得从数据库里找到数据
     var delData = function(db, callback) {
         //连接到数据库
@@ -21,7 +18,6 @@ function register(req, res) {
                 console.log('error' + err);
                 return;
             }
-            console.log('查询结果222222222' + data);
             if (data.length > 0) { //找到相同的用户名提示已经注册
                 callback(data);
             } else {
@@ -32,16 +28,13 @@ function register(req, res) {
                         return;
                     }
                     callback(data);
-
                 });
             }
         });
 
     }
     MongoClient.connect(Baseurl, function(err, db) {
-        console.log('连接成功')
         delData(db, function(result) {
-            console.log('查询结果' + result);
             var presence = '',
                 msg = '注册成功',
                 status = 200;

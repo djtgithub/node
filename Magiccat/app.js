@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     // 允许的请求主机名及端口号 也可以用通配符*， 表示允许所有主机请求
     // res.setHeader('Access-Control-Allow-Origin', '*');
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.1.108:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.109.231:8081');
     // 允许请求携带cookie 
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 允许的请求方式
@@ -33,6 +33,43 @@ var search = require('./search');
 // var MongoClient = require('mongodb').MongoClient;
 // var Baseurl = "mongodb://localhost:27017/Magiccat";
 
+// MongoClient.connect(Baseurl, function(err, db) {
+//   if (err) throw err;
+//   var dbo = db.db("Magiccat");
+//   dbo.collection('jishi_content').aggregate([
+//     { $lookup:
+//        {
+//          from: 'jishi_detail',            // 右集合
+//          localField: '_id',    // 左集合 join 字段
+//          foreignField: 'gid',         // 右集合 join 字段
+//          as: 'orderdetails'           // 新生成字段（类型array）
+//        }
+//      }
+//     ]).toArray(function(err, res) {
+//     if (err) throw err;
+//     console.log(JSON.stringify(res));
+//     db.close();
+//   });
+// });
+
+// MongoClient.connect(Baseurl, function(err, db) {
+//   if (err) throw err;
+//   var dbo = db.db("Magiccat");
+//   dbo.collection('orders').aggregate([
+//     { $lookup:
+//        {
+//          from: 'products',            // 右集合
+//          localField: 'product_id',    // 左集合 join 字段
+//          foreignField: '_id',         // 右集合 join 字段
+//          as: 'orderdetails'           // 新生成字段（类型array）
+//        }
+//      }
+//     ]).toArray(function(err, res) {
+//     if (err) throw err;
+//     console.log(JSON.stringify(res));
+//     db.close();
+//   });
+// });
 
 //------------------------------------------------------------注册接口-------------------------------------------------------------
 app.post('/register',register.register);
