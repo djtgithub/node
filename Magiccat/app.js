@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     // 允许的请求主机名及端口号 也可以用通配符*， 表示允许所有主机请求
     // res.setHeader('Access-Control-Allow-Origin', '*');
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.109.231:8081');
+    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.109.63:8080');
     // 允许请求携带cookie 
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 允许的请求方式
@@ -29,6 +29,7 @@ var register = require('./register');
 var login = require('./login');
 var carousel = require('./home');
 var search = require('./search');
+var jishidetail =require('./jishi_detail');
 
 // var MongoClient = require('mongodb').MongoClient;
 // var Baseurl = "mongodb://localhost:27017/Magiccat";
@@ -193,6 +194,8 @@ app.get('/Carousel_map',carousel.carousel);
 app.get('/jishi_content',carousel.jishicontent);
 //---------------------------------------------------------------搜索接口---------------------------------------------------------
 app.get('/search',search.search);
+//---------------------------------------------------------------详情接口---------------------------------------------------------
+app.get('/jishi_detail',jishidetail.jishidetail);
 
 //-------------------------------------------------------------配置服务端口--------------------------------------------------------
 var server = app.listen(3001, function() {
