@@ -29,7 +29,7 @@ exports.find=function(collectionname,json,callback){
 	})
 }
 
-
+//分页查找方法
 exports.findlimit=function(collectionname,json,callback){
 
 	_connectDB(function(err,db){
@@ -37,19 +37,18 @@ exports.findlimit=function(collectionname,json,callback){
         var limit = json.limit;
 		var dbo = db.db('Magiccat');
     	function runAsync(){
-    	 		var p = new Promise((resolve, reject) => {
+	 		var p = new Promise((resolve, reject) => {
 		    	var result1 = dbo.collection(collectionname).find().count(function(err,item){
 					resolve(item);
 				});
-				});
-		    	return p; 
+			});
+	    	return p; 
 		}
 		runAsync();
 		runAsync().then(function(data){
 		 totall=data;
 		      var result = dbo.collection(collectionname).find().skip(2).limit(limit);
 				result.toArray(function(err,data){
-					console.log('aaaaaaaaaaaaaa'+data);
 					var data = {
 			                'msg': '请求成功',
 			                'totall': totall,

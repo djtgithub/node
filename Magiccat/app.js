@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     // 允许的请求主机名及端口号 也可以用通配符*， 表示允许所有主机请求
     // res.setHeader('Access-Control-Allow-Origin', '*');
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.109.6:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.109.44:8080');
     // 允许请求携带cookie 
     res.setHeader('Access-Control-Allow-Credentials', true);
     // 允许的请求方式
@@ -129,25 +129,54 @@ app.get('/Carousel_map', function(req, res) {
         }
     })
 });
-// app.get('/Carousel_map',carousel.carousel);
 //---------------------------------------------------------------首页内容接口---------------------------------------------------------
 app.get('/jishi_content', function(req, res) {
       var req = JSON.parse(req.query.filter);
-      // console.log('req'+JSON.stringify(req));
-    var data, restult;
+    var data;
     DB.findlimit('jishi_content', req, function(err, data) {
-        console.log('appjs'+JSON.stringify(data));
         if (data.data.length > 0) {
             ReturnJson(res,data)
         }
     })
 });
 //---------------------------------------------------------------搜索接口---------------------------------------------------------
+app.get('/search',function(req,res){
+      var req = JSON.parse(req.query.filter);
+      var query={};
+      if(req) {
+        query['name']=new RegExp(req);//模糊查询参数
+      }
 
-// app.get('/search',search.search);
+      DB.find('jishi_content',query,function(err,data){
+        console.log(data);
+        if (data.length > 0) {
+            var data = {
+                        'msg': '请求成功',
+                        'data':data,
+                        'code':200
+                     }
+            ReturnJson(res,data)
+        }
+      })
+})
 //---------------------------------------------------------------详情接口---------------------------------------------------------
 // app.get('/jishi_detail',jishidetail.jishidetail);
+app.get('/jishi_detail',function(req,res){
 
+     var req = JSON.parse(req.query.filter);
+    //接收到的参数
+    var gid={"gid":req.id};
+    DB.find('jishi_detail',gid,function(err, data) {
+        if (data.length > 0) {
+            var data = {
+                        'msg': '请求成功',
+                        'data':data[0],
+                        'code':200
+                       }
+            ReturnJson(res,data);
+        }
+    })
+})
 //-------------------------------------------------------------配置服务端口--------------------------------------------------------
 var server = app.listen(3001, function() {
 
